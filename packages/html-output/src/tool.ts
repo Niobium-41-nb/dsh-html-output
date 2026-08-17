@@ -6,6 +6,7 @@
 
 import { defineTool } from '@deepseek-ai/dsh-tools'
 import type { Context } from '@deepseek-ai/cordis'
+import type { GenericCallView, GenericResultView, ToolResult } from '@deepseek-ai/dsh-tools'
 
 /** Tool name the agent calls to declare or validate an HTML delivery. */
 export const HTML_RENDER_TOOL = 'html_render'
@@ -79,6 +80,31 @@ export function formatHtmlRenderResult(value: HtmlRenderValue): string {
 }
 
 /**
+ * Pending-call presentation: a generic card titled by the delivery title.
+ * @param args - the raw tool arguments.
+ * @returns the card view shown while the call runs.
+ */
+export function presentHtmlRenderCall(args: HtmlRenderArgs): GenericCallView {
+  return {
+    card: 'generic',
+    title: args.title?.trim() ?? 'HTML 输出',
+    kind: 'other',
+    rawInput: args.title,
+  }
+}
+
+/**
+ * Completed-call presentation: a concise delivery confirmation.
+ * @param _args - the raw tool arguments (unused).
+ * @param result - the final model-facing tool result.
+ * @returns the generic result card, or undefined on failure (generic fallback).
+ */
+export function presentHtmlRenderResult(_args: HtmlRenderArgs, result: ToolResult): GenericResultView | undefined {
+  if (result.isError) return undefined
+  return { card: 'generic', title: 'HTML 输出已校验' }
+}
+
+/**
  * Register the `html_render` tool.
  * @param ctx - context whose `tools` registry receives the registration.
  * @param maxHtmlBytes - deployment cap applied to validated deliveries.
@@ -111,6 +137,8 @@ export function applyHtmlRenderTool(ctx: Context, maxHtmlBytes: number): void {
       render: (_args, value) => [{ type: 'text', text: formatHtmlRenderResult(value as HtmlRenderValue) }],
     },
     isConcurrencySafe: () => true,
+    presentCall: presentHtmlRenderCall,
+    presentResult: (args, result) => presentHtmlRenderResult(args, result),
     async execute(args: HtmlRenderArgs) {
       return { ok: true as const, ...validateHtmlRender(args, maxHtmlBytes) }
     },

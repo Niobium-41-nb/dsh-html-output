@@ -13,6 +13,8 @@ import {
   DEFAULT_MAX_HTML_BYTES,
   MAX_TITLE_LENGTH,
   formatHtmlRenderResult,
+  presentHtmlRenderCall,
+  presentHtmlRenderResult,
   validateHtmlRender,
 } from '../src/tool.js'
 import { HTML_OUTPUT_SECTION } from '../src/section.js'
@@ -71,6 +73,25 @@ describe('HTML_OUTPUT_SECTION', () => {
     expect(HTML_OUTPUT_SECTION).toContain('live preview')
     expect(HTML_OUTPUT_SECTION).toContain('html_render')
     expect(HTML_OUTPUT_SECTION.length).toBeGreaterThan(400)
+  })
+})
+
+describe('presentation', () => {
+  it('shows a pending card titled by the delivery title', () => {
+    expect(presentHtmlRenderCall({ title: '报表' })).toMatchObject({
+      card: 'generic',
+      title: '报表',
+      kind: 'other',
+    })
+    expect(presentHtmlRenderCall({})).toMatchObject({ title: 'HTML 输出' })
+  })
+
+  it('shows a concise confirmation on success and falls back on failure', () => {
+    expect(presentHtmlRenderResult({}, { content: [], isError: false })).toMatchObject({
+      card: 'generic',
+      title: 'HTML 输出已校验',
+    })
+    expect(presentHtmlRenderResult({}, { content: [], isError: true })).toBeUndefined()
   })
 })
 
