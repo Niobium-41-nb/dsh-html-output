@@ -50,6 +50,8 @@ flowchart LR
 
 ## 安装
 
+> 📖 完整中文安装/挂载/验证步骤见 [docs/install.zh-CN.md](docs/install.zh-CN.md)；两个插件包已发布到 npm：`dsh-html-output`（Host）、`dsh-client-html-output`（Client）。
+
 ### 1. 构建
 
 ```sh
