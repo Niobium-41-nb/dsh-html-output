@@ -34,7 +34,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "prepublishOnly": "pnpm run build"
+    "verify:bundle": "node scripts/verify-bundle.mjs",
+    "prepublishOnly": "pnpm run build && pnpm run verify:bundle"
   },
   "license": "MIT",
   "dependencies": {
