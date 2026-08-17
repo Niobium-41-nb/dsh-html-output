@@ -68,8 +68,7 @@ describe('extractHtmlFromText', () => {
   it('handles nested fences inside the html body', () => {
     const text = `${FENCE_OPEN}<pre>\`\`\`js\ncode\n\`\`\`</pre>${FENCE_CLOSE}`
     const result = extractHtmlFromText(text)
-    expect(result?.html).toContain('<pre>')
-    expect(result?.html).toContain('</pre>')
+    expect(result?.html).toBe('<pre>```js\ncode\n```</pre>')
   })
 
   it('keeps doctype and inline scripts intact in the extraction', () => {

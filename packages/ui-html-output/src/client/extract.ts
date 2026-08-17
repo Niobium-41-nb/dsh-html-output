@@ -22,8 +22,13 @@ export interface HtmlOutputOwner {
   openFile: (path: string) => void
 }
 
-/** Fenced html block: ````html` (with optional attributes) then any text until the closing fence. */
-const HTML_FENCE_RE = /```html[^\r\n]*\r?\n([\s\S]*?)```/g
+/**
+ * Fenced html block: ````html` (with optional attributes), then any text until
+ * a closing fence that ends its own line. Requiring the closing fence to sit
+ * at end-of-line keeps nested ```` ``` ```` literals inside the html body (e.g.
+ * a `<pre>` showing code) from truncating the extraction.
+ */
+const HTML_FENCE_RE = /```html[^\r\n]*\r?\n([\s\S]*?)\r?\n```(?=[ \t]*(?:\r?\n|$))/g
 
 /** Explicit marker: everything after the first occurrence is raw HTML. */
 const HTML_MARKER = '<!--dsh-html-->'
