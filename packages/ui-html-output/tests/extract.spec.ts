@@ -54,6 +54,28 @@ describe('extractHtmlFromText', () => {
     const text = '```html title="报告"\r\n<div>ok</div>\r\n```'
     expect(extractHtmlFromText(text)).toEqual({ html: '<div>ok</div>', mode: 'fence' })
   })
+
+  it('ignores example fences before a marker-form delivery', () => {
+    const text = `模板示例：\n${FENCE_OPEN}<p>template</p>${FENCE_CLOSE}\n\n正式输出：\n<!--dsh-html-->\n<section>real</section>`
+    expect(extractHtmlFromText(text)).toEqual({ html: '<section>real</section>', mode: 'marker' })
+  })
+
+  it('picks the last fence even when an earlier fence is empty', () => {
+    const text = `${FENCE_OPEN}${FENCE_CLOSE}\n\n${FENCE_OPEN}<p>final</p>${FENCE_CLOSE}`
+    expect(extractHtmlFromText(text)).toEqual({ html: '<p>final</p>', mode: 'fence' })
+  })
+
+  it('handles nested fences inside the html body', () => {
+    const text = `${FENCE_OPEN}<pre>\`\`\`js\ncode\n\`\`\`</pre>${FENCE_CLOSE}`
+    const result = extractHtmlFromText(text)
+    expect(result?.html).toContain('<pre>')
+    expect(result?.html).toContain('</pre>')
+  })
+
+  it('keeps doctype and inline scripts intact in the extraction', () => {
+    const html = '<!DOCTYPE html><html><body><script>document.title = "a<b";</script></body></html>'
+    expect(extractHtmlFromText(`${FENCE_OPEN}${html}${FENCE_CLOSE}`)?.html).toBe(html)
+  })
 })
 
 describe('extractTitle', () => {
