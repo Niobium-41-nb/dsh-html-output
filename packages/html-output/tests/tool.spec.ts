@@ -5,6 +5,9 @@
 
 import { describe, expect, it } from 'vitest'
 import type { Context } from '@deepseek-ai/cordis'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
 import { apply } from '../src/index.js'
 import {
   DEFAULT_MAX_HTML_BYTES,
@@ -104,5 +107,16 @@ describe('apply', () => {
       .toThrow(/promptOrder must be a non-negative integer/)
     expect(() => apply(ctx, { enabled: true, promptOrder: 150, maxHtmlBytes: 0 }))
       .toThrow(/maxHtmlBytes must be a positive integer/)
+  })
+})
+
+describe('bundle patch', () => {
+  it('inserts the host row and the browser row', () => {
+    const patch = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'cordis.patch.yml'), 'utf8')
+    expect(patch).toContain('- id: html-output')
+    expect(patch).toContain("name: 'dsh-html-output'")
+    expect(patch).toContain('- id: ui-html-output')
+    expect(patch).toContain("name: 'dsh-client-html-output'")
+    expect(patch).toMatch(/config:\s*\n\s*enabled: true/)
   })
 })

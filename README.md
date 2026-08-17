@@ -22,6 +22,8 @@ Agent 回复 (```html fence)
 └──────────────────────────────┘
 ```
 
+![HTML 预览卡片](assets/preview-card.svg)
+
 ## 特性
 
 - **Host 半（`packages/html-output`，包名 `dsh-html-output`）**

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <!-- 背景：聊天流中的一条助手消息 + HTML 预览卡片 -->
+  <rect x="0" y="0" width="760" height="420" rx="12" fill="#1c2029"/>
+  <rect x="30" y="24" width="700" height="60" rx="10" fill="#242936"/>
+  <text x="50" y="50" fill="#9aa4b5" font-size="13">统计报表如下。</text>
+  <text x="50" y="70" fill="#5b6472" font-size="11">```html  &lt;!DOCTYPE html&gt;&lt;html&gt;…&lt;/html&gt;  ```</text>
+
+  <!-- HTML 渲染输出卡片 -->
+  <rect x="30" y="104" width="700" height="288" rx="10" fill="#242936" stroke="#3a4150"/>
+  <!-- 标题栏 -->
+  <rect x="30" y="104" width="700" height="38" rx="10" fill="#2a3040"/>
+  <rect x="30" y="126" width="700" height="16" fill="#2a3040"/>
+  <circle cx="50" cy="123" r="5" fill="#5b6472"/>
+  <text x="64" y="128" fill="#d6dbe4" font-size="13" font-weight="600">HTML 渲染输出 · 销售报表</text>
+  <text x="492" y="128" fill="#9aa4b5" font-size="12">查看源码</text>
+  <rect x="548" y="114" width="86" height="20" rx="5" fill="none" stroke="#4a5264"/>
+  <text x="558" y="128" fill="#9aa4b5" font-size="12">在新标签打开</text>
+  <rect x="642" y="114" width="72" height="20" rx="5" fill="none" stroke="#4a5264"/>
+  <text x="652" y="128" fill="#9aa4b5" font-size="12">复制 HTML</text>
+
+  <!-- 预览区（渲染后的表格） -->
+  <rect x="30" y="142" width="700" height="250" rx="0 0 10 10" fill="#ffffff"/>
+  <text x="60" y="180" fill="#1c2029" font-size="18" font-weight="700">销售报表</text>
+  <text x="60" y="206" fill="#5b6472" font-size="12">2026 年 8 月 · 分渠道销售汇总</text>
+  <rect x="60" y="224" width="300" height="120" rx="6" fill="none" stroke="#d8dde6"/>
+  <rect x="60" y="224" width="100" height="28" rx="6 0 0 0" fill="#eef1f6"/>
+  <text x="72" y="243" fill="#1c2029" font-size="12" font-weight="600">渠道</text>
+  <rect x="160" y="224" width="100" height="28" fill="#eef1f6"/>
+  <text x="172" y="243" fill="#1c2029" font-size="12" font-weight="600">销售额</text>
+  <rect x="260" y="224" width="100" height="28" rx="0 6 0 0" fill="#eef1f6"/>
+  <text x="272" y="243" fill="#1c2029" font-size="12" font-weight="600">占比</text>
+  <rect x="60" y="252" width="100" height="30" fill="#ffffff"/>
+  <text x="72" y="272" fill="#3a4150" font-size="12">线上</text>
+  <rect x="160" y="252" width="100" height="30" fill="#ffffff"/>
+  <text x="172" y="272" fill="#3a4150" font-size="12">¥ 128,400</text>
+  <rect x="260" y="252" width="100" height="30" fill="#ffffff"/>
+  <text x="272" y="272" fill="#3a4150" font-size="12">62%</text>
+  <rect x="60" y="282" width="100" height="30" fill="#f7f9fc"/>
+  <text x="72" y="302" fill="#3a4150" font-size="12">门店</text>
+  <rect x="160" y="282" width="100" height="30" fill="#f7f9fc"/>
+  <text x="172" y="302" fill="#3a4150" font-size="12">¥ 58,600</text>
+  <rect x="260" y="282" width="100" height="30" fill="#f7f9fc"/>
+  <text x="272" y="302" fill="#3a4150" font-size="12">28%</text>
+  <rect x="60" y="312" width="100" height="32" fill="#ffffff"/>
+  <text x="72" y="332" fill="#3a4150" font-size="12">分销</text>
+  <rect x="160" y="312" width="100" height="32" fill="#ffffff"/>
+  <text x="172" y="332" fill="#3a4150" font-size="12">¥ 20,700</text>
+  <rect x="260" y="312" width="100" height="32" fill="#ffffff"/>
+  <text x="272" y="332" fill="#3a4150" font-size="12">10%</text>
+</svg>
