@@ -40,7 +40,7 @@
   "license": "MIT",
   "dependencies": {
     "@deepseek-ai/schemastery": "^3.18.1",
-    "dsh-client-html-output": "^0.1.0"
+    "dsh-client-html-output": "^0.1.1"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",

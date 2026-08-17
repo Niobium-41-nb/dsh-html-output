@@ -1,6 +1,6 @@
 {
   "name": "dsh-client-html-output",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DeepSeek Harness web client plugin: renders fenced html blocks in assistant messages as sandboxed live previews",
   "type": "module",
   "main": "lib/types/index.js",
