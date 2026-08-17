@@ -21,7 +21,7 @@
 dsh plugin --profile web add dsh-html-output
 ```
 
-重启 `dsh web` 即可。下面的手动步骤仅在需要精细控制配置时使用。
+重启 `dsh web` 即可。验证：设置 → 插件市场/清单中应出现 `dsh-html-output`；会话里让 Agent 输出带样式的 HTML 报告，消息下方会出现「HTML 渲染输出」预览卡片。下面的手动步骤仅在需要精细控制配置时使用。
 
 ## 1. 安装包
 
