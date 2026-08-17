@@ -11,7 +11,17 @@
 
 - DeepSeek Harness **≥ 0.1.0-rc.6**（含 Web GUI；两个包针对该 API 发布）
 - Node ≥ 22、pnpm（推荐 11.x）
-- 插件包已发布到 npm：`dsh-html-output@0.1.0`、`dsh-client-html-output@0.1.0`
+- 插件包已发布到 npm：`dsh-html-output`（Host + bundle）、`dsh-client-html-output`（Client）
+
+## 0.5 一键安装（推荐）
+
+`dsh-html-output` 声明了 `dsh.bundle` manifest，安装会自动插入 Host 与浏览器两行：
+
+```powershell
+dsh plugin --profile web add dsh-html-output
+```
+
+重启 `dsh web` 即可。下面的手动步骤仅在需要精细控制配置时使用。
 
 ## 1. 安装包
 

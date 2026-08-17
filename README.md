@@ -50,17 +50,19 @@ flowchart LR
 
 ## 安装
 
-> 📖 完整中文安装/挂载/验证步骤见 [docs/install.zh-CN.md](docs/install.zh-CN.md)；两个插件包已发布到 npm：`dsh-html-output`（Host）、`dsh-client-html-output`（Client）。
+> 📖 完整中文安装/挂载/验证步骤见 [docs/install.zh-CN.md](docs/install.zh-CN.md)；两个插件包已发布到 npm：`dsh-html-output`（Host + bundle）、`dsh-client-html-output`（Client）。
 
-### 1. 构建
+### 一键安装（推荐）
 
 ```sh
-pnpm install
-pnpm build        # 产出 packages/*/lib
-pnpm test         # 单元测试
+dsh plugin --profile web add dsh-html-output
 ```
 
-### 2. 挂载 Host 半
+`dsh-html-output` 声明了 `dsh.bundle` manifest，安装时会自动把 Host 行（`html-output`）与浏览器行（`ui-html-output` → `dsh-client-html-output`）插入你的 profile，并带上默认配置。重启 `dsh web` 即可。
+
+### 手动挂载（不依赖 bundle）
+
+#### Host 半
 
 在 DSH 的 cordis 组合（如 `cordis.yml`）中加一行：
 
@@ -74,7 +76,7 @@ pnpm test         # 单元测试
 
 并把 `packages/html-output` 安装进 DSH 的依赖树（本地 link 或发布后 `pnpm add`）。
 
-### 3. 挂载 Client 半
+#### Client 半
 
 在 web-app bundle 的 `cordis.patch.yml` 中加入浏览器插件行：
 
@@ -86,6 +88,14 @@ pnpm test         # 单元测试
 同时在 bundle 的 `package.json` 依赖中加入 `dsh-client-html-output`（与内置 `dsh-client-ui-trajectory` 等插件同一机制），然后重启 web。
 
 > 以 deepseek-harness 源码 checkout 为例：在 `packages/bundle/web-app/cordis.patch.yml` 加上述行，`packages/bundle/web-app/package.json` 加依赖，host 行加到你的 `cordis.yml`；之后 `pnpm install && pnpm build:web` 并刷新 GUI。
+
+### 构建（源码开发）
+
+```sh
+pnpm install
+pnpm build        # 产出 packages/*/lib
+pnpm test         # 单元测试
+```
 
 ## 使用
 

@@ -1,0 +1,12 @@
+# dsh-html-output bundle patch: installs the host half and the browser half in
+# one `dsh plugin add` step. The host row carries the plugin config; the client
+# row is the browser roster entry served by the web GUI.
+- insert:
+    - id: html-output
+      name: 'dsh-html-output'
+      config:
+        enabled: true
+        promptOrder: 150
+        maxHtmlBytes: 524288
+    - id: ui-html-output
+      name: 'dsh-client-html-output'
