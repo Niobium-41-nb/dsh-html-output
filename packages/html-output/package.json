@@ -35,12 +35,12 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "verify:bundle": "node scripts/verify-bundle.mjs",
-    "prepublishOnly": "pnpm run build && pnpm run verify:bundle"
+    "prepublishOnly": "tsc -p tsconfig.json && node scripts/verify-bundle.mjs"
   },
   "license": "MIT",
   "dependencies": {
     "@deepseek-ai/schemastery": "^3.18.1",
-    "dsh-client-html-output": "^0.1.1"
+    "dsh-client-html-output": "workspace:^"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",

@@ -44,6 +44,9 @@ importers:
       '@deepseek-ai/schemastery':
         specifier: ^3.18.1
         version: 3.18.1
+      dsh-client-html-output:
+        specifier: workspace:^
+        version: link:../ui-html-output
     devDependencies:
       '@deepseek-ai/cordis':
         specifier: ^4.0.1
