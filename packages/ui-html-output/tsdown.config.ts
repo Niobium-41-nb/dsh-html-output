@@ -13,7 +13,7 @@ import { defineConfig } from 'tsdown'
 
 const ID = 'dsh-client-html-output'
 
-/** Module-table entries the loader's require can answer (platform seed + runtime exemption). */
+/** Module-table entries the loader's require can answer (current platform seed). */
 const PLATFORM_EXTERNALS = [
   'react',
   'react/jsx-runtime',
@@ -21,7 +21,6 @@ const PLATFORM_EXTERNALS = [
   'react-dom/client',
   '@deepseek-ai/cordis',
   '@deepseek-ai/dsh-client-ui-slots',
-  '@deepseek-ai/dsh-client-runtime/client',
 ]
 
 export default defineConfig({

@@ -3,7 +3,13 @@
  * message. No React, no ctx — unit-testable and replayable.
  */
 
-import type { TurnLocation } from '@deepseek-ai/dsh-client-runtime/client'
+// TurnLocation moved out of the removed @deepseek-ai/dsh-client-runtime: the
+// conversation contract now lives in the ui-conversation client entry.
+import type { TurnLocation } from '@deepseek-ai/dsh-client-ui-conversation/client'
+// Type-only: the `assistant-step` conversation data scope is declared by the
+// chat client entry (its ConversationStepDataMap merge), so this import is what
+// types the `data.get('assistant-step')` reads below.
+import type {} from '@deepseek-ai/dsh-client-ui-chat/client'
 
 /** Match carrier delivered to the turn-tail renderer. */
 export interface HtmlOutputMatch {

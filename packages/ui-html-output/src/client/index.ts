@@ -5,7 +5,12 @@
 
 import type { Context } from '@deepseek-ai/cordis'
 // Type-only: pulls the SlotMap row and owner currency the register calls need.
+// `conversation.chat.turnTail` is declared by the chat client entry, the
+// `assistant-step` data scope by its node declarations, and the `slots`
+// service on Context by the renderer entry.
+import type {} from '@deepseek-ai/dsh-client-ui-chat/client'
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type { HtmlOutputOwner } from './extract.js'
 import { selectHtmlOutput } from './extract.js'
 import { HtmlOutputTail } from './HtmlOutputTail.js'

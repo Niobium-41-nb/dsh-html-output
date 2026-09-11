@@ -5,6 +5,9 @@
 
 import { memo, useMemo, useState } from 'react'
 import type { PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
+// Type-only: declares the `conversation.chat.turnTail` SlotMap row this props
+// type indexes into.
+import type {} from '@deepseek-ai/dsh-client-ui-chat/client'
 import type { HtmlOutputMatch } from './extract.js'
 import { copyText, wrapHtmlDocument } from './html.js'
 
