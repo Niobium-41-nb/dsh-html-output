@@ -1,0 +1,85 @@
+# Publish both halves to npm through trusted publishers (OIDC) — no token stored.
+#
+# Why this file exists: the first publish (2026-09-13, 0.1.2) worked only because a
+# human sat in a terminal and cleared a browser 2FA challenge for each package. A
+# non-TTY shell cannot pass that challenge, and swapping credentials does not help
+# — a `bypass_2fa` granular token and a fresh `npm login --auth-type=web`
+# credential both authenticate for reads and both get EOTP at publish time.
+# A trusted publisher is the supported way out.
+#
+# Read the workspace checklist before the first run: ../../TRUSTED-PUBLISHING.md.
+# It has the exact npm settings-page values, and the two ways this workflow fails
+# silently (the workflow filename must match byte-for-byte, and the trusted
+# publisher must be allowed to run `npm publish` — configurations created after
+# 2026-09-03 default to `npm stage publish` only).
+#
+# Both packages need their OWN trusted publisher on npm, each pointing at this one
+# repository and this one workflow file.
+name: publish
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+  id-token: write # required: this is what lets npm verify the workflow
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.7.0
+
+      # Node 24 on purpose: trusted publishing needs the npm CLI at 11.5.1+ and
+      # Node 22 still ships npm 10.x.
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false # never cache in a release build
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # `lib/` is gitignored in this repository, so both packages must be built.
+      - name: Build
+        run: pnpm build
+
+      # Order matters: the host package declares a dependency on the client
+      # package, so the client has to exist on the registry first.
+      - name: Publish dsh-client-html-output
+        working-directory: packages/ui-html-output
+        run: |
+          name=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+          if npm view "$name@$version" version >/dev/null 2>&1; then
+            echo "$name@$version is already on the registry."
+            exit 0
+          fi
+          npm publish
+
+      - name: Publish dsh-html-output
+        working-directory: packages/html-output
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if npm view "dsh-html-output@$version" version >/dev/null 2>&1; then
+            echo "dsh-html-output@$version is already on the registry."
+            exit 0
+          fi
+          # The host package depends on its sibling through the workspace protocol.
+          # `pnpm publish` rewrites `workspace:^` to the client's version at pack
+          # time; `npm publish` does not, so do the same rewrite here and fail loudly
+          # if a `workspace:` range survives into the tarball (a consumer could not
+          # install it).
+          node -e "const fs=require('fs');const host=JSON.parse(fs.readFileSync('package.json','utf8'));const client=JSON.parse(fs.readFileSync('../ui-html-output/package.json','utf8'));host.dependencies['dsh-client-html-output']='^'+client.version;fs.writeFileSync('package.json',JSON.stringify(host,null,2)+'\n')"
+          if grep -q 'workspace:' package.json; then
+            echo 'a workspace: range survived the rewrite — refusing to publish' >&2
+            exit 1
+          fi
+          npm publish
