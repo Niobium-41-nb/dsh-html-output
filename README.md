@@ -1,5 +1,7 @@
 # dsh-html-output
 
+[![check](https://github.com/Niobium-41-nb/dsh-html-output/actions/workflows/check.yml/badge.svg)](https://github.com/Niobium-41-nb/dsh-html-output/actions/workflows/check.yml) [![npm](https://img.shields.io/npm/v/dsh-html-output)](https://www.npmjs.com/package/dsh-html-output) [![license](https://img.shields.io/github/license/Niobium-41-nb/dsh-html-output)](https://github.com/Niobium-41-nb/dsh-html-output/blob/main/LICENSE)
+
 让 DeepSeek Harness 的 Agent **用 HTML 输出富文本而不是 Markdown**，并在 DSH Web GUI 的聊天界面里把 HTML 渲染成实时预览的插件。
 
 ```
